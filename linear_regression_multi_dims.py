@@ -4,27 +4,22 @@ linear regression for two numpy 1d numpy arrays
 """
 
 import numpy as np
-from matplotlib import pyplot as plt
 
 
-class EasyLinearRegression:
+class MultivariateLinearRegression:
 
     def __init__(self, X: np.ndarray, y: np.ndarray):
-        self.X = X
-        self.y = y
-
-        self.a = 1
-        self.b = 1
+        self.X = X  # array of shape (n, m); where n is the number of features and m the number of rows)
+        self.y = y  # 1 dim y array
 
     def fit(self):
-        # numpy 1d arrays X and Y
-        x = self.X
+        X = self.X
         y = self.y
 
-        size = x.size
+        size = y.size
 
-        if size != y.size:
-            print('x.size != y.size')
+        if size != X.shape[1].size:
+            print('X.shape[1].size != y.size')
             return
 
         # mean
@@ -51,23 +46,4 @@ class EasyLinearRegression:
 
 
 if __name__ == '__main__':
-    points = 500
-
-    # generate data
-    m, c = 2, 3
-
-    X = np.random.rand(points)
-    noise = np.random.randn(points) / 4
-
-    y = X * m + c + noise
-
-    plt.scatter(X, y, alpha=0.6)
-
-    reg = EasyLinearRegression(X, y)
-    reg.fit()
-
-    x_axis_points = np.linspace(0, 1, 501)
-    y_axis_points = reg.b * x_axis_points + reg.a
-    plt.plot(x_axis_points, y_axis_points, c='red')
-
-    plt.show()
+    pass
