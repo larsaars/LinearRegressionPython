@@ -17,26 +17,27 @@ class MultivariateLinearRegression:
         y = self.y
 
         size = y.size
+        feature_size = X.shape[0]
 
         if size != X.shape[1].size:
             print('X.shape[1].size != y.size')
             return
 
         # mean
-        x_m, y_m = x.mean(), y.mean()
-        # standard deviation (squared error / distance)
-        s_x = np.sqrt(((x - x_m) ** 2).sum() / size)  # = x.std()
-        s_y = np.sqrt(((y - y_m) ** 2).sum() / size)
+        X_m, y_m = X.mean(), y.mean()
+        # y std deviation
+        s_y = y.std()
 
-        # this would be the error (distance) not squared
-        # s_x = np.abs(x - x_m).sum() / size
-        # s_y = np.abs(y - y_m).sum() / size
+        # for all axis pre calculate the parameters needed
+        for axis_index in range(feature_size):
+            # x std
+            s_x = X[axis_index].std()
+            # covariance
+            s_xy = np.cov(X[axis_index], y)
+            # correlation
+            r_xy = s_xy / (s_x * s_y)
 
-        # covariance
-        s_xy = ((x - x_m) * (y - y_m)).sum() / size  # = np.cov(x, y)
-        # correlation
-        r_xy = s_xy / (s_x * s_y)
-
+        #TODO
         # the function values
         # ŷ = b * x + a
         # --> a = -b * x + ŷ (replaced with x_m and y_m)

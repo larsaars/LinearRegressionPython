@@ -13,7 +13,7 @@ class EasyLinearRegression:
         self.X = X
         self.y = y
 
-        self.a = 1
+        self.a = 0
         self.b = 1
 
     def fit(self):
