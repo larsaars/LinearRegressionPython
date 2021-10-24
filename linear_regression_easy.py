@@ -38,7 +38,7 @@ class EasyLinearRegression:
         # s_y = np.abs(y - y_m).sum() / size
 
         # covariance
-        s_xy = ((x - x_m) * (y - y_m)).sum() / size  # = np.cov(x, y)
+        s_xy = ((x - x_m) * (y - y_m)).sum() / size  # = np.cov(x, y);
         # correlation
         r_xy = s_xy / (s_x * s_y)
 
