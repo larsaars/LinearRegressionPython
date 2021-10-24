@@ -57,7 +57,7 @@ class MultivariateLinearRegression:
             self.w0 -= self.W[axis_index] * X_m[axis_index]
 
     def solve(self, X_values: list):
-        if(len(X_values) != len(self.W)):
+        if len(X_values) != len(self.W):
             print('X_values length does not match the expected size')
             return None
 
@@ -69,27 +69,27 @@ class MultivariateLinearRegression:
         return y_d
 
 
-
 if __name__ == '__main__':
     points = 500
 
-    # generate data
-    m, c = 2, 3
-
     # create random data and put them into correct shape
-    X = np.random.rand(points)
-    noise = np.random.randn(points) / 4
+    y = np.random.rand(points)
 
-    y = X * m + c + noise
+    noise_1 = np.random.rand(points) / 4
+    noise_2 = np.random.rand(points) / 4
 
-    plt.scatter(X, y, alpha=0.6)
+    x_1 = y * 2 + 1.2 + noise_1
+    x_2 = y * 4 + 3 + noise_2
 
-    reg = MultivariateLinearRegression(X.reshape(1, -1), y)
+    fig, axes = plt.subplots(2)
+    axes[0].scatter(x_1, y, alpha=0.6)
+    axes[1].scatter(x_2, y, alpha=0.6)
+
+    reg = MultivariateLinearRegression(np.array([x_1, x_2]), y)
     reg.fit()
 
-    print(reg.W)
     x_axis_points = np.linspace(0, 1, 501)
-    y_axis_points = reg.W[0] * x_axis_points + reg.w0
-    plt.plot(x_axis_points, y_axis_points, c='red')
+
+    print(reg.solve([0.5, 0.5]))
 
     plt.show()
