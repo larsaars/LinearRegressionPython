@@ -16,9 +16,6 @@ class MultivariateLinearRegression:
         self.W = [0 for _ in range(X.shape[0])]  # the weights that are to be calculated (w_1 to w_n)
         self.w0 = 0  # the first weight without an x factor
 
-    def normalize_data(self):
-        pass
-
     def fit(self):
         X = self.X
         y = self.y
@@ -58,6 +55,19 @@ class MultivariateLinearRegression:
 
         for axis_index in range(feature_count):
             self.w0 -= self.W[axis_index] * X_m[axis_index]
+
+    def solve(self, X_values: list):
+        if(len(X_values) != len(self.W)):
+            print('X_values length does not match the expected size')
+            return None
+
+        y_d = self.w0
+
+        for i in range(len(self.W)):
+            y_d += self.W[i] * X_values[i]
+
+        return y_d
+
 
 
 if __name__ == '__main__':
